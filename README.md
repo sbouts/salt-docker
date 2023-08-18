@@ -5,7 +5,7 @@ Salt master and minions in Docker
 1. Check the version you want to install / test on [the release page](https://github.com/saltstack/salt/releases).
 1. Change the version in the `docker-compose` file
 ```shell
-sed -i 's/SALT_VERSION: [[:digit:]]\+/SALT_VERSION: <YOUR_VERSION>/g' docker-compose.yml
+sed -i 's/SALT_MAJOR_VERSION: [[:digit:]]\+/SALT_MAJOR_VERSION: <YOUR_VERSION>/g' docker-compose.yml
 ```
 1. Run the docker-compose file
 ```shell

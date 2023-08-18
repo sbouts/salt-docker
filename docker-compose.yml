@@ -6,7 +6,7 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile.master
       args:
-        SALT_VERSION: 3005
+        SALT_MAJOR_VERSION: 3006
     container_name: saltmaster
     hostname: saltmaster
     ports:
@@ -21,7 +21,7 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile.minion.ubuntu
       args:
-        SALT_VERSION: 3005
+        SALT_MAJOR_VERSION: 3006
     container_name: saltminion-ubuntu
     hostname: saltminion-ubuntu
     depends_on:
@@ -33,7 +33,7 @@ services:
       context: ./dockerfiles
       dockerfile: Dockerfile.minion.centos
       args:
-        SALT_VERSION: 3005
+        SALT_MAJOR_VERSION: 3006
     container_name: saltminion-centos
     hostname: saltminion-centos
     depends_on:

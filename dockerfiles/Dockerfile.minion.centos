@@ -1,16 +1,16 @@
 FROM centos:7.9.2009
 
-ARG SALT_VERSION=3005
+ARG SALT_MAJOR_VERSION=3005
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 # add saltstack key and install dependencies
 RUN yum install epel-release curl gnupg2 net-tools ca-certificates -y \
-  && rpm --import https://repo.saltproject.io/salt/py3/redhat/7/x86_64/${SALT_VERSION}/SALTSTACK-GPG-KEY.pub \
-  && curl -fsSL https://repo.saltproject.io/salt/py3/redhat/7/x86_64/${SALT_VERSION}.repo | tee /etc/yum.repos.d/salt.repo \
+  && rpm --import https://repo.saltproject.io/salt/py3/redhat/7/x86_64/SALT-PROJECT-GPG-PUBKEY-2023.pub \
+  && curl -fsSL https://repo.saltproject.io/salt/py3/redhat/7/x86_64/${SALT_MAJOR_VERSION}.repo | tee /etc/yum.repos.d/salt.repo \
   # install salt-minion
   && yum update -y \
-  && yum install salt-minion-${SALT_VERSION}* -y \
+  && yum install salt-minion-${SALT_MAJOR_VERSION}* -y \
   # cleanup temporary files
   && rm -rf /var/lib/yum/* /var/cache/yum \
   && yum clean all

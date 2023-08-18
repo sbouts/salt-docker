@@ -1,17 +1,17 @@
 FROM ubuntu:22.04
 
-ARG SALT_VERSION=3005
+ARG SALT_MAJOR_VERSION=3005
 
 ENV DEBIAN_FRONTEND=noninteractive
 
 # add repo, install salt and install dependencies
 RUN apt update \
   && apt install curl net-tools gnupg2 dirmngr ca-certificates -y --no-install-recommends \
-  && curl -fsSL -o /usr/share/keyrings/salt-archive-keyring.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/${SALT_VERSION}/salt-archive-keyring.gpg \
-  && echo "deb [signed-by=/usr/share/keyrings/salt-archive-keyring.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/${SALT_VERSION} jammy main" | tee /etc/apt/sources.list.d/salt.list \ 
+  && curl -fsSL -o /etc/apt/keyrings/salt-archive-keyring-2023.gpg https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/SALT-PROJECT-GPG-PUBKEY-2023.gpg \
+  && echo "deb [signed-by=/etc/apt/keyrings/salt-archive-keyring-2023.gpg arch=amd64] https://repo.saltproject.io/salt/py3/ubuntu/22.04/amd64/${SALT_MAJOR_VERSION} jammy main" | tee /etc/apt/sources.list.d/salt.list \
   # # install salt-minion
   && apt update \
-  && apt install salt-minion=${SALT_VERSION}* -y --no-install-recommends \
+  && apt install salt-minion=${SALT_MAJOR_VERSION}* -y --no-install-recommends \
   # # cleanup temporary files
   && rm -rf /var/lib/apt/lists/* \
   && apt -y autoremove \
