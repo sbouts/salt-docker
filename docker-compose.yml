@@ -1,10 +1,11 @@
 version: '3'
 
 services:
-  saltmaster:
+
+  saltmaster-gui:
     build:
       context: ./dockerfiles
-      dockerfile: Dockerfile.master
+      dockerfile: Dockerfile.master-gui
       args:
         SALT_MAJOR_VERSION: 3006
     container_name: saltmaster
@@ -12,9 +13,26 @@ services:
     ports:
       - 4505:4505
       - 4506:4506
-    volumes:
-    - ./srv/:/srv/
-    - ./conf/master/:/etc/salt/master.d/
+      - 3333:3333
+# OPTIONAL VOLUMES FOR TESTING httpd INSTALL
+#    volumes:
+#    - ./srv/:/srv/
+#    - ./conf/master/:/etc/salt/master.d/
+
+#  saltmaster-no-gui:
+#    build:
+#      context: ./dockerfiles
+#      dockerfile: Dockerfile.master
+#      args:
+#        SALT_VERSION: 3006
+#    container_name: saltmaster
+#    hostname: saltmaster
+#    ports:
+#      - 4505:4505
+#      - 4506:4506
+#    volumes:
+#    - ./srv/:/srv/
+#    - ./conf/master/:/etc/salt/master.d/
 
   saltminion-ubuntu:
     build:
@@ -25,7 +43,8 @@ services:
     container_name: saltminion-ubuntu
     hostname: saltminion-ubuntu
     depends_on:
-      - saltmaster
+      - saltmaster-gui
+      #- saltmaster-no-gui
     restart: on-failure
 
   saltminion-centos:
@@ -37,5 +56,6 @@ services:
     container_name: saltminion-centos
     hostname: saltminion-centos
     depends_on:
-      - saltmaster
+      - saltmaster-gui
+      #- saltmaster-no-gui
     restart: on-failure
