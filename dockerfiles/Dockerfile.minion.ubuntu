@@ -21,4 +21,4 @@ RUN apt update \
 COPY ./conf/master.conf /etc/salt/minion.d/master.conf
 
 # start salt minion
-CMD ["/usr/bin/salt-minion"]
+CMD ["/usr/bin/salt-minion", "-l", "info"]
